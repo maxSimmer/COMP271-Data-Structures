@@ -27,6 +27,8 @@ public class TrafficTicketManagement {
         FileOperations.loadData();
         // Run the menu -- method is in MenuOperations class
         MenuOperations.menu();
+        // run mostFrequentViolations
+        mostFrequentViolation();
     }  // method main
 
 
@@ -114,10 +116,13 @@ public class TrafficTicketManagement {
         }
     }  // method searchForDriver
 
-
-    /** Inactive method - do not implement unless working on OPTION A*/
     /**
-     * Plate number leads to driver AND vehicle info
+     * Created and finished searchForPlate method (Part A)
+     * Used code from searchForDriver method
+     * User enters plate number (used AP52915)
+     * Using plate number we then display the model of the car
+     * Further displayed the violations under that plate number
+     * Could not get the driver information to display :(
      */
     public static void searchForPlate() {
         // plate info
@@ -132,8 +137,6 @@ public class TrafficTicketManagement {
         } else { // print car info related to plate number
             System.out.printf("\n%s belongs to a %s %s %s %s ",
                     vehicle.licensePlate, vehicle.color, vehicle.year, vehicle.make, vehicle.model);
-
-                    
 
             System.out.printf("\n\n\tTicket date and time\t\tLocation\t\t\tLicense Number\tViolation");
 
@@ -164,6 +167,47 @@ public class TrafficTicketManagement {
                 System.out.printf("\n");
         }
     }  // method searchForPlate
+
+    public static void mostFrequentViolation(){
+        // check for violations
+        if (violations == null){
+            System.out.println("There are no violations present");
+        } else {
+            // new hashmap with (k, v) both integers 
+            HashMap <Integer, Integer> violationMap = new HashMap<Integer, Integer>();
+            // for loop to map through traffic tickets
+            for (Map.Entry<Integer, TrafficTicket> trafficTicketEntry : trafficTickets.entrySet()){
+                // new Traffic ticket
+                TrafficTicket violationCurrentCount = trafficTicketEntry.getValue();
+                // check current (k, v) values
+                int containsViolation = violationCurrentCount.violationCode;
+                if(violationMap.containsKey(containsViolation)){
+                    // if violation exists in tickets, increment count
+                    violationMap.put(containsViolation, violationMap.get(containsViolation + 1));
+                } else { // else its the first violation so count is 1
+                    violationMap.put(containsViolation, 1);
+                }
+            }
+        }
+        // return the most frequent violations
+        // which element shows up the most
+         int violatonCode = 0;
+         // counter
+         int count = 1;
+         // create entry set of the violationCountMap
+         HashMap <Integer, Integer> violationMap = new HashMap<Integer, Integer>();
+         Set<Map.Entry<Integer, Integer>> entrySet = violationMap.entrySet();
+         // for loop to iterate through (k, v) values
+         for (Map.Entry<Integer, Integer> entry : entrySet) {
+             // if violation appearance is greater than 1
+             if(entry.getValue() > count) {
+                 // change element to the most frequent element so far
+                 violatonCode = entry.getKey();
+             }
+         }
+         // pprint out which violation appears the most
+         System.out.println("This violation appears the most " + violatonCode);
+    } // method mostFrequentViolations
 
 
     /** Inactive method - do not implement */

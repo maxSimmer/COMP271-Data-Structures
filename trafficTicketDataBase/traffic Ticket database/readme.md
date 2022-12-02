@@ -1,5 +1,6 @@
 # Traffic tickets
 
+![](TT271.png)
 
 The Traffic Ticket Management System (TTMS) comprises eight classes, as shown above. Four classes are used for `Driver`, `Vehicle`, `Violation`, and `TrafficTicket` objects. The interactions between these classes are orchestrated by class `TrafficTicketManagement`. This class is supported by three more classes that provide auxiliary operations, file operations, and menu operations.
 
