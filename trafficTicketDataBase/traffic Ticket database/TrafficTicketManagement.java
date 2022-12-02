@@ -85,6 +85,7 @@ public class TrafficTicketManagement {
         } else {
             System.out.printf("\n%s belongs to %s %s",
                     driver.driverLicenseNumber, driver.firstName, driver.lastName);
+
             // Header for ticket report
             System.out.printf("\n\n\tTicket date and time\t\t\tLocation\t\t\t\tPlate\t\tViolation");
             // Counter for how many tickets this driver has
@@ -124,39 +125,43 @@ public class TrafficTicketManagement {
         String plateNumber = keyboard.next();
         Vehicle vehicle = vehicles.get(plateNumber);
         
-
         // plate number doesn't exist or has no record
         if (vehicle == null){
             System.out.printf("\nThere is no record for plate number %s\n",
                     vehicle.plateNumber);
-        } else {
+        } else { // print car info related to plate number
             System.out.printf("\n%s belongs to a %s %s %s %s ",
                     vehicle.licensePlate, vehicle.color, vehicle.year, vehicle.make, vehicle.model);
 
-                    int ticketCounter = 0;
-                    // Search every ticket in the database but look for the ones matching the entered driver license number
-                    for (Map.Entry<Integer,TrafficTicket> trafficTicketEntry: trafficTickets.entrySet()) {
-                        // Get the value V of the <K,V> pair stored in the trafficTickets hashmap;
-                        // Remember it's a trafficTicket object
-                        TrafficTicket trafficTicket = trafficTicketEntry.getValue();
-                        // Is this a ticket for the driver we are looking for?
-                        if (trafficTicket.licensePlate.equals(vehicle.licensePlate)) {
-                            // This is a ticket for the driver we are looking at.
-                            // Pull the strings we want to print in the report and pad them for left-flush.
-                            String licensePlate = AuxiliaryOperations.pad(trafficTicket.licensePlate, FileOperations.licensePlateMaxLength);
-                            String date = trafficTicket.date.toString();
-                            String address = AuxiliaryOperations.pad(trafficTicket.address, FileOperations.addressMaxLength);
-                            String violation = AuxiliaryOperations.pad(violations.get(trafficTicket.violationCode).violationDescription, FileOperations.violationDescriptionMaxLength);
-                            ticketCounter++;
-                            System.out.printf("\n\t%s\t%s\t\t%s\t%s", date, address, licensePlate, violation);
-                        }
-                    }
-                    if (ticketCounter == 0) {
-                        System.out.printf("\nNo tickets found.");
-                    }
-                    System.out.printf("\n");
+                    
+
+            System.out.printf("\n\n\tTicket date and time\t\tLocation\t\t\tLicense Number\tViolation");
 
             // plate number -> car + license plate -> use license plate number to display the rest of the info
+
+            int ticketCounter = 0;
+                    // Search every ticket in the database but look for the ones matching the entered driver license number
+            for (Map.Entry<Integer,TrafficTicket> trafficTicketEntry: trafficTickets.entrySet()) {
+                // Get the value V of the <K,V> pair stored in the trafficTickets hashmap;
+                // Remember it's a trafficTicket object
+                TrafficTicket trafficTicket = trafficTicketEntry.getValue();
+                        
+                // Is this a ticket for the driver we are looking for?
+                if (trafficTicket.licensePlate.equals(vehicle.licensePlate)) {
+                    // This is a ticket for the driver we are looking at.
+                    // Pull the strings we want to print in the report and pad them for left-flush.
+                    String plate = AuxiliaryOperations.pad(trafficTicket.driverLicenseNumber, FileOperations.licensePlateMaxLength);
+                    String date = trafficTicket.date.toString();
+                    String address = AuxiliaryOperations.pad(trafficTicket.address, FileOperations.addressMaxLength);
+                    String violation = AuxiliaryOperations.pad(violations.get(trafficTicket.violationCode).violationDescription, FileOperations.violationDescriptionMaxLength);
+                    ticketCounter++;
+                    System.out.printf("\n\t%s\t%s\t\t%s\t%s", date, address, plate, violation);
+                }
+            }
+                if (ticketCounter == 0) {
+                    System.out.printf("\nNo tickets found.");
+                }
+                System.out.printf("\n");
         }
     }  // method searchForPlate
 
