@@ -214,7 +214,7 @@ public class TrafficTicketManagement {
              }
          }
          // pprint out which violation appears the most
-         System.out.println("\nThis violation appears the most " + violatonCode);
+         System.out.println("\nThis violation appears the most: " + violatonCode);
     } // method mostFrequentViolations
 
 
