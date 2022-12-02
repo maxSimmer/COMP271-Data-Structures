@@ -3,6 +3,14 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
+ * Finished searchForPlate method (Part A)
+ * Could not get searchForPlate to print out the driver information (name)
+ * Attempted mostFrequentViolations (Part B)
+ * No idea if mostFrequentViolations runs properly
+ * Partner coded w/ a student from the other section
+ */
+
+/**
  * Application for managing traffic tickets
  */
 public class TrafficTicketManagement {
@@ -25,10 +33,10 @@ public class TrafficTicketManagement {
     public static void main(String[] args) throws ParseException, IOException {
         // Load the data from storage to the hashmaps -- method is in FileOperations class
         FileOperations.loadData();
-        // Run the menu -- method is in MenuOperations class
-        MenuOperations.menu();
         // run mostFrequentViolations
         mostFrequentViolation();
+        // Run the menu -- method is in MenuOperations class
+        MenuOperations.menu();
     }  // method main
 
 
@@ -206,7 +214,7 @@ public class TrafficTicketManagement {
              }
          }
          // pprint out which violation appears the most
-         System.out.println("This violation appears the most " + violatonCode);
+         System.out.println("\nThis violation appears the most " + violatonCode);
     } // method mostFrequentViolations
 
 
